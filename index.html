@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawsome Pets - Find Your Perfect Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f3ff 0%, #e9d5ff 100%);
+            overflow-x: hidden;
+        }
+
+        .floating-paw {
+            position: fixed;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .paw1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .paw2 { top: 30%; right: 15%; animation-delay: 1s; }
+        .paw3 { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .paw4 { bottom: 40%; right: 10%; animation-delay: 3s; }
+
+        header {
+            background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 56px;
+            margin-bottom: 15px;
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.95;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .intro h2 {
+            font-size: 36px;
+            color: #7c3aed;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pet-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(147, 51, 234, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            animation: popIn 0.6s ease forwards;
+        }
+
+        .pet-card:nth-child(1) { animation-delay: 0.1s; }
+        .pet-card:nth-child(2) { animation-delay: 0.2s; }
+        .pet-card:nth-child(3) { animation-delay: 0.3s; }
+        .pet-card:nth-child(4) { animation-delay: 0.4s; }
+        .pet-card:nth-child(5) { animation-delay: 0.5s; }
+        .pet-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .pet-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%);
+            transition: all 0.6s ease;
+        }
+
+        .pet-card:hover::before {
+            top: -50%;
+            left: -50%;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(147, 51, 234, 0.25);
+        }
+
+        .pet-icon {
+            font-size: 80px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .pet-card:hover .pet-icon {
+            transform: scale(1.2) rotate(5deg);
+            animation: wiggle 0.5s ease;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: scale(1.2) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(5deg); }
+            75% { transform: scale(1.2) rotate(-5deg); }
+        }
+
+        .pet-name {
+            font-size: 28px;
+            color: #7c3aed;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .pet-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .benefits-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #9333ea;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+
+        .benefits-list li::before {
+            content: '✨';
+            color: #9333ea;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 80px;
+            padding: 60px 30px;
+            background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
+            border-radius: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '🐾';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: white;
+            color: #7c3aed;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7c3aed;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .intro h2 {
+                font-size: 28px;
+            }
+
+            .pets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-paw paw1">🐾</div>
+    <div class="floating-paw paw2">🐾</div>
+    <div class="floating-paw paw3">🐾</div>
+    <div class="floating-paw paw4">🐾</div>
+
+    <header>
+        <div class="header-content">
+            <h1>🐾 Pawsome Pets 🐾</h1>
+            <p class="subtitle">Discover Your Perfect Companion</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Why Have a Pet?</h2>
+            <p>
+                Pets bring joy, companionship, and unconditional love into our lives. They teach us responsibility, 
+                reduce stress, and make every day an adventure. Find the perfect furry (or feathery) friend for you!
+            </p>
+        </div>
+
+        <div class="pets-grid">
+            <div class="pet-card">
+                <span class="pet-icon">🐕</span>
+                <h3 class="pet-name">Dogs</h3>
+                <p class="pet-description">
+                    Man's best friend for thousands of years! Dogs are loyal, loving, and always excited to see you.
+                </p>
+                <div class="benefits-title">💜 Why Get a Dog?</div>
+                <ul class="benefits-list">
+                    <li>Unconditional love and loyalty</li>
+                    <li>Encourages daily exercise and outdoor activities</li>
+                    <li>Great for families and companionship</li>
+                    <li>Can be trained to do amazing tricks</li>
+                    <li>Provides security and protection</li>
+                </ul>
+            </div>
+
+            <div class="pet-card">
+                <span class="pet-icon">🐈</span>
+                <h3 class="pet-name">Cats</h3>
+                <p class="pet-description">
+                    Independent yet affectionate, cats are perfect for those who appreciate a pet with personality.
+                </p>
+                <div class="benefits-title">💜 Why Get a Cat?</div>
+                <ul class="benefits-list">
+                    <li>Low maintenance and independent</li>
+                    <li>Natural pest control</li>
+                    <li>Quiet and perfect for apartments</li>
+                    <li>Stress-relieving purrs</li>
+                    <li>Entertaining and playful antics</li>
+                </ul>
+            </div>
+
+            <div class="pet-card">
+                <span class="pet-icon">🐦</span>
+                <h3 class="pet-name">Birds</h3>
+                <p class="pet-description">
+                    Colorful, intelligent, and full of personality. Birds bring music and beauty to your home.
+                </p>
+                <div class="benefits-title">💜 Why Get a Bird?</div>
+                <ul class="benefits-list">
+                    <li>Beautiful songs and cheerful chirping</li>
+                    <li>Highly intelligent and can learn tricks</li>
+                    <li>Great for smaller living spaces</li>
+                    <li>Long lifespan with proper care</li>
+                    <li>Social and interactive companions</li>
+                </ul>
+            </div>
+
+            <div class="pet-card">
+                <span class="pet-icon">🐰</span>
+                <h3 class="pet-name">Rabbits</h3>
+                <p class="pet-description">
+                    Soft, gentle, and surprisingly playful. Rabbits are wonderful indoor companions.
+                </p>
+                <div class="benefits-title">💜 Why Get a Rabbit?</div>
+                <ul class="benefits-list">
+                    <li>Quiet and gentle nature</li>
+                    <li>Can be litter-trained</li>
+                    <li>Playful and curious personalities</li>
+                    <li>Great for apartments</li>
+                    <li>Form strong bonds with owners</li>
+                </ul>
+            </div>
+
+            <div class="pet-card">
+                <span class="pet-icon">🐠</span>
+                <h3 class="pet-name">Fish</h3>
+                <p class="pet-description">
+                    Calming and beautiful, fish tanks are living art that reduces stress and anxiety.
+                </p>
+                <div class="benefits-title">💜 Why Get Fish?</div>
+                <ul class="benefits-list">
+                    <li>Incredibly calming to watch</li>
+                    <li>Low maintenance compared to other pets</li>
+                    <li>Stunning visual display</li>
+                    <li>Reduces stress and lowers blood pressure</li>
+                    <li>Perfect for small spaces</li>
+                </ul>
+            </div>
+
+            <div class="pet-card">
+                <span class="pet-icon">🐹</span>
+                <h3 class="pet-name">Hamsters</h3>
+                <p class="pet-description">
+                    Small, adorable, and fun to watch. Hamsters are perfect first pets for kids.
+                </p>
+                <div class="benefits-title">💜 Why Get a Hamster?</div>
+                <ul class="benefits-list">
+                    <li>Small and easy to house</li>
+                    <li>Low cost to maintain</li>
+                    <li>Entertaining to watch</li>
+                    <li>Teach children responsibility</li>
+                    <li>Clean and odor-free with proper care</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Find Your Perfect Pet?</h2>
+            <p>Every pet deserves a loving home, and every home deserves the joy of a pet!</p>
+            <a href="#" class="cta-button">Adopt Today 💜</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>🐾 Made with love for all pet lovers 💜 | Remember: Adopt, Don't Shop!</p>
+    </footer>
+
+    <script>
+        const petCards = document.querySelectorAll('.pet-card');
+        
+        petCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const paws = document.querySelectorAll('.floating-paw');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            paws.forEach((paw, index) => {
+                const speed = (index + 1) * 20;
+                paw.style.transform = `translate(${x * speed}px, ${y * speed}px) rotate(${x * 360}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
