@@ -342,6 +342,207 @@
                 font-size: 32px;
             }
         }
+        /* --- New Navigation Styles --- */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(124, 58, 237, 0.9); /* Slightly darker, semi-transparent */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    padding: 15px 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 15px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #e9d5ff;
+}
+
+.nav-highlight {
+    color: #f5f3ff;
+    border-bottom: 3px solid #f5f3ff;
+}
+
+.hero-text {
+    margin-top: 40px; /* Space for the new nav bar */
+}
+
+/* --- New Sitter Hub Section Styles --- */
+.sitter-hub {
+    padding: 60px 20px;
+    background-color: #f5f3ff;
+    border-top: 1px solid #e9d5ff;
+}
+
+.sitter-hub h2 {
+    text-align: center;
+    font-size: 40px;
+    color: #7c3aed;
+    margin-bottom: 10px;
+}
+
+.sitter-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hub-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .hub-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Pet Care Form Styles */
+.pet-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(147, 51, 234, 0.1);
+}
+
+.pet-form h3 {
+    color: #9333ea;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    border-bottom: 1px dashed #e9d5ff;
+    padding-bottom: 5px;
+}
+
+.pet-form input[type="text"], 
+.pet-form input[type="email"], 
+.pet-form select, 
+.pet-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.pet-form input:focus, .pet-form select:focus, .pet-form textarea:focus {
+    border-color: #7c3aed;
+    outline: none;
+}
+
+.form-button {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.form-message {
+    text-align: center;
+    padding: 10px;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+/* Public Listings Board Styles */
+.public-listings h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.listing-card {
+    background: #ffffff;
+    border: 2px solid #e9d5ff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(147, 51, 234, 0.15);
+}
+
+.listing-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.listing-card h4 {
+    color: #7c3aed;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.listing-card p {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.contact-sitter-btn {
+    background-color: #9333ea;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.contact-sitter-btn:hover {
+    background-color: #7c3aed;
+}
     </style>
 </head>
 <body>
@@ -351,10 +552,20 @@
     <div class="floating-paw paw4">🐾</div>
 
     <header>
-        <div class="header-content">
-            <h1>🐾 Pawsome Pets 🐾</h1>
-            <p class="subtitle">Discover Your Perfect Companion</p>
+    <div class="header-content">
+        <nav class="main-nav">
+            <a href="#home" class="nav-logo">🐾 Pawsome Pets 🐾</a>
+            <div class="nav-links">
+                <a href="#pet-listings" class="nav-link">Find a Pet</a>
+                <a href="#sitter-hub" class="nav-link nav-highlight">Pet Sitter Hub</a>
+                <a href="#about" class="nav-link">About Us</a>
+            </div>
+        </nav>
+        <div class="hero-text">
+            <h1>Discover Your Perfect Companion</h1>
+            <p class="subtitle">A Community for Love and Care</p>
         </div>
+    </div>
     </header>
 
     <div class="container">
@@ -365,6 +576,48 @@
                 reduce stress, and make every day an adventure. Find the perfect furry (or feathery) friend for you!
             </p>
         </div>
+        <div class="sitter-hub" id="sitter-hub">
+    <h2>Pet Sitter Hub: Post Your Pet's Needs</h2>
+    <p class="sitter-subtitle">Going away? Easily post your pet's details and care requirements for our community of loving sitters to find!</p>
+    
+    <div class="hub-container">
+        <form id="pet-care-form" class="pet-form">
+            <h3>1. Your Contact Info</h3>
+            <input type="text" id="owner-name" placeholder="Your Full Name" required>
+            <input type="email" id="owner-email" placeholder="Your Email for Contact" required>
+
+            <h3>2. Pet Details</h3>
+            <input type="text" id="pet-name" placeholder="Pet's Name (e.g., Sparky)" required>
+            <select id="pet-type" required>
+                <option value="" disabled selected>Select Pet Type</option>
+                <option value="Dog">Dog 🐕</option>
+                <option value="Cat">Cat 🐈</option>
+                <option value="Bird">Bird 🐦</option>
+                <option value="Rabbit">Rabbit 🐰</option>
+                <option value="Other">Other Pet</option>
+            </select>
+            <textarea id="care-details" placeholder="Specific care instructions and dates (e.g., Needs a walk at 7 AM and medication at 5 PM. Away from Oct 20 - Oct 27.)" rows="4" required></textarea>
+
+            <h3>3. Confirm & Post</h3>
+            <button type="submit" class="cta-button form-button">Post Pet for Care 💖</button>
+            <p class="form-message" id="form-message" style="display: none;">Your listing is public! Sitters will contact you soon.</p>
+        </form>
+
+        <div class="public-listings">
+            <h3>Community Care Board</h3>
+            <div id="listings-container" class="listings-grid">
+                <div class="listing-card">
+                    <span class="listing-icon">🐕</span>
+                    <h4>Buddy Needs a Sitter</h4>
+                    <p><strong>Owner:</strong> Sarah J.</p>
+                    <p><strong>Care Needed:</strong> 1x daily walk, fed twice. Very friendly Golden Retriever.</p>
+                    <p><strong>Dates:</strong> Dec 15 - Dec 22</p>
+                    <button class="contact-sitter-btn" onclick="alert('Please use the owner\'s email to contact them!')">Contact Owner</button>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
 
         <div class="pets-grid">
             <div class="pet-card">
@@ -701,6 +954,58 @@
                 paw.style.transform = `translate(${x * speed}px, ${y * speed}px) rotate(${x * 360}deg)`;
             });
         });
+        // --- New Pet Sitter Hub Functionality ---
+const petCareForm = document.getElementById('pet-care-form');
+const listingsContainer = document.getElementById('listings-container');
+const formMessage = document.getElementById('form-message');
+
+const petIcons = {
+    'Dog': '🐕',
+    'Cat': '🐈',
+    'Bird': '🐦',
+    'Rabbit': '🐰',
+    'Other': '🐾' // Default/Other icon
+};
+
+petCareForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const ownerName = document.getElementById('owner-name').value;
+    const petName = document.getElementById('pet-name').value;
+    const petType = document.getElementById('pet-type').value;
+    const careDetails = document.getElementById('care-details').value;
+    const ownerEmail = document.getElementById('owner-email').value;
+
+    const icon = petIcons[petType] || petIcons['Other'];
+
+    // Create the new listing card element
+    const newListing = document.createElement('div');
+    newListing.classList.add('listing-card');
+    newListing.innerHTML = `
+        <span class="listing-icon">${icon}</span>
+        <h4>${petName} Needs a Sitter! (${petType})</h4>
+        <p><strong>Owner:</strong> ${ownerName}</p>
+        <p><strong>Email:</strong> <span style="font-size:12px; color:#9333ea;">(Visible to Sitters Only)</span></p>
+        <p><strong>Care Needed:</strong> ${careDetails.substring(0, 100)}...</p>
+        <button class="contact-sitter-btn" 
+            onclick="alert('Please contact the owner using their email: ${ownerEmail}')">
+            Contact ${ownerName}
+        </button>
+    `;
+
+    // Add the new listing to the top of the board
+    listingsContainer.prepend(newListing);
+
+    // Show a success message
+    formMessage.textContent = 'Success! Your pet is posted. Sitters will contact your email.';
+    formMessage.style.display = 'block';
+
+    // Clear the form after a short delay
+    setTimeout(() => {
+        petCareForm.reset();
+        formMessage.style.display = 'none';
+    }, 3000);
+});
     </script>
 </body>
 </html>
