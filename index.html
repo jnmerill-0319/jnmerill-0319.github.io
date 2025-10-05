@@ -546,6 +546,16 @@
     </style>
 </head>
 <body>
+
+    html<div id="adoption-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; justify-content: center; align-items: center;">   
+        <div style="background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(1); transition: transform 0.3s ease;">       
+            <h2 id="modal-title" style="color: #7c3aed; margin-bottom: 20px;"></h2>     
+            <p id="modal-message" style="margin-bottom: 30px; font-size: 18px; color: #333;">Are you sure you want to adopt this pet?</p>       
+            <button id="confirm-adoption-btn" class="cta-button" style="padding: 12px 30px; margin-right: 10px;">Yes, Adopt!</button>     
+            <button id="cancel-adoption-btn" class="cta-button" style="padding: 12px 30px; background: #ddd; color: #333;">Cancel</button>   
+        </div></div>
+
+    
     <div class="floating-paw paw1">🐾</div>
     <div class="floating-paw paw2">🐾</div>
     <div class="floating-paw paw3">🐾</div>
@@ -935,15 +945,49 @@
     <script>
         const petCards = document.querySelectorAll('.pet-card');
         
-        petCards.forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 200);
-            });
-        });
+       petCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+        // Prevent click if the element clicked is an interactive element (A or BUTTON)
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
 
+        const petNameElement = this.querySelector('.pet-name');
+        const petIconElement = this.querySelector('.pet-icon');
+
+        // Joke check for the Dinosaur card
+        if (petNameElement.textContent.trim() === 'Dinosaur') {
+            alert("Sorry, the Dinosaur is currently in a very large, temporary enclosure and is not available for adoption.");
+            return;
+        }
+        currentPetName = petNameElement.textContent.trim();
+        currentPetIcon = petIconElement.textContent.trim();
+
+        // Show Modal with animation
+        modalTitle.textContent = `Adopt a ${currentPetName}?`;
+        adoptionModal.style.display = 'flex';
+        adoptionModal.querySelector('div').style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            adoptionModal.querySelector('div').style.transform = 'scale(1)';
+        }, 10);
+    });
+});
+        // Modal Button Handlers
+confirmBtn.addEventListener('click', () => {
+    // 1. Add the 'Adopted' listing to the board
+    addAdoptedListing(currentPetName, currentPetIcon);
+
+    // 2. Hide modal and reset variables
+    adoptionModal.style.display = 'none';
+    alert(`Congratulations! You've adopted the ${currentPetName}!`);
+    currentPetName = '';
+    currentPetIcon = '';
+});
+
+cancelBtn.addEventListener('click', () => {
+    adoptionModal.style.display = 'none';
+});
+// --- END: MODAL AND ADOPTION LOGIC ---
+        });
+       
         document.addEventListener('mousemove', (e) => {
             const paws = document.querySelectorAll('.floating-paw');
             const x = e.clientX / window.innerWidth;
@@ -954,6 +998,7 @@
                 paw.style.transform = `translate(${x * speed}px, ${y * speed}px) rotate(${x * 360}deg)`;
             });
         });
+        petCareForm.addEventListener('submit', function(e) {
         // --- New Pet Sitter Hub Functionality ---
 const petCareForm = document.getElementById('pet-care-form');
 const listingsContainer = document.getElementById('listings-container');
@@ -966,7 +1011,25 @@ const petIcons = {
     'Rabbit': '🐰',
     'Other': '🐾' // Default/Other icon
 };
-
+javascriptconst adoptionModal = document.getElementById('adoption-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const confirmBtn = document.getElementById('confirm-adoption-btn');
+        const cancelBtn = document.getElementById('cancel-adoption-btn');
+        let currentPetName = '';let currentPetIcon = '';
+        function addAdoptedListing(petName, petIcon) {   
+            const newListing = document.createElement('div');    
+            newListing.classList.add('listing-card');    
+            newListing.style.backgroundColor = '#d1e7dd';     
+            newListing.style.borderColor = '#0f5132';    
+            newListing.innerHTML = `        
+            <span class="listing-icon" style="font-size: 50px;">🏠</span>        
+            <h4>${petName} Has Found a Home!</h4>        
+            <p><strong>Pet:</strong> ${petIcon} ${petName}</p>        
+            <p><strong>Status:</strong> Adopted through Pawsome Pets!</p>        
+            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>        
+            <button class="contact-sitter-btn" style="background-color: #0f5132;">Happy Tails!</button>    `;    
+            listingsContainer.prepend(newListing);}
+        
 petCareForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
